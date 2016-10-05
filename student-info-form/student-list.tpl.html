@@ -1,0 +1,25 @@
+<h1>list of students</h1>
+<div class="container">{{$ctrl.studList}}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Section</th>
+                <th>Gender</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in $ctrl.studentList">
+                <td>{{row.name}}</td>
+                <td>{{row.department}}</td>
+                <td>{{row.section}}</td>
+                <td>{{row.gender}}</td>
+                <td>
+                    <input type="button" class="btn btn-danger btn-xs btn-rounded" ng-click="$ctrl.remove($index);" value="Remove">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

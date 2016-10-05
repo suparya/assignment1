@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="studentInfoApp">
+
+<head>
+    <title>Student Information</title>
+    <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+    <script src="studentInfo.module.js"></script>
+    <script src="studentInfo.svc.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap.min.css">
+</head>
+
+<body ng-controller="AppCtrl as vm">
+    <div class="container">
+        <form name="form" role="form">
+            <div class="form-group">
+                <label for="username">Name</label>
+                <input type="text" ng-model="vm.ui.name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Department</label>
+                <select name="section" class="form-control " ng-model="vm.ui.department">
+                    <option ng-repeat="dept in vm.departments" value="{{dept.name}}">{{dept.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="section">Section</label>
+                <select name="section" class="form-control  " ng-model="vm.ui.section">
+                    <option ng-repeat="sec in vm.sections" value="{{sec.name}}">{{sec.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hobbies">Hobbies</label>
+                <textarea name="hobbies" class="form-control" rows="5" placeholder="hobbies" ng-model="vm.ui.hobbies"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="female" ng-model="vm.ui.gender">Female</label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="male" ng-model="vm.ui.gender">Male</label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="others" ng-model="vm.ui.gender">Others</label>
+            </div>
+            <div class="form-actions">
+                <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-danger" ng-click="vm.submitForm(vm.ui)">submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="container" ng-if="vm.studentsData.length>0">
+        <h1>List Of Students</h1>
+        <div class="container">{{$ctrl.studList}}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Section</th>
+                        <th>Gender</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in vm.studentsData track by $index">
+                        <td>{{row.name}}</td>
+                        <td>{{row.department}}</td>
+                        <td>{{row.section}}</td>
+                        <td>{{row.gender}}</td>
+                        <td>
+                            <input type="button" class="btn btn-danger btn-xs btn-rounded" ng-click="vm.remove($index);" value="Remove">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
