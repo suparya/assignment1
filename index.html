@@ -18,6 +18,10 @@
                 <input type="text" ng-model="vm.ui.name" class="form-control" required>
             </div>
             <div class="form-group">
+                <label for="username">Email</label>
+                <input type="email" ng-model="vm.ui.email" class="form-control" required>
+            </div>
+            <div class="form-group">
                 <label for="username">Department</label>
                 <select name="section" class="form-control " ng-model="vm.ui.department">
                     <option ng-repeat="dept in vm.departments" value="{{dept.name}}">{{dept.name}}</option>
@@ -43,17 +47,19 @@
                     <input type="radio" name="gender" value="others" ng-model="vm.ui.gender">Others</label>
             </div>
             <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-danger" ng-click="vm.submitForm(vm.ui)">submit</button>
+                <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-success" ng-click="vm.submitForm(vm.ui)">submit</button>
             </div>
         </form>
     </div>
     <div class="container" ng-if="vm.studentsData.length>0">
         <h1>List Of Students</h1>
-        <div class="container">{{$ctrl.studList}}
+        <div class="container">
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>Department</th>
                         <th>Section</th>
                         <th>Gender</th>
@@ -62,12 +68,15 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="row in vm.studentsData track by $index">
+                        <td>{{row.id}}</td>
                         <td>{{row.name}}</td>
+                        <td>{{row.email}}</td>
                         <td>{{row.department}}</td>
                         <td>{{row.section}}</td>
                         <td>{{row.gender}}</td>
                         <td>
-                            <input type="button" class="btn btn-danger btn-xs btn-rounded" ng-click="vm.remove($index);" value="Remove">
+                            <input type="button" class="btn btn-info btn-xs btn-rounded" ng-click="vm.edit(row.id);" value="Edit">
+                            <!-- <input type="button" class="btn btn-danger btn-xs btn-rounded" ng-click="vm.remove(row.id);" value="Remove"> -->
                         </td>
                     </tr>
                 </tbody>

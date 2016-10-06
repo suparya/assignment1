@@ -38,6 +38,7 @@
         }];
         vm.submitForm = submitForm;
         vm.studentsData = [];
+        vm.edit = edit;
         activate();
 
         ////////////////
@@ -46,15 +47,33 @@
 
         function submitForm(stud) {
             console.log(stud);
-            studentInfoSvc.getStudentInfo(stud, vm.studentsData).then(function(studentList) {
-                console.log(studentList);
-                reset();
-            });
+            if (!angular.isDefined(stud)) {
+                return;
+            } else {
+                studentInfoSvc.addStudentInfo(stud).then(function(response) {
+                    console.log(response);
+                    reset();
+                }).then(function(data) {
+                    getAllStud();
+                });
+            }
+        }
 
+        function getAllStud() {
+            studentInfoSvc.getAllStudentInfo().then(function(studentList) {
+                console.log(studentList);
+                vm.studentsData = studentList;
+            });
         }
 
         function reset() {
             vm.ui = {};
+        }
+
+        function edit(id) {
+            studentInfoSvc.getStudentById(id).then(function(response) {
+                vm.ui = response[0];
+            });
         }
 
     }
