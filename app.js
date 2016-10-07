@@ -39,6 +39,7 @@
         vm.submitForm = submitForm;
         vm.studentsData = [];
         vm.edit = edit;
+        vm.reset = reset;
         vm.isSubmit = false;
         vm.length = 0;
         activate();
