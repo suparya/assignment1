@@ -40,7 +40,6 @@
         vm.studentsData = [];
         vm.edit = edit;
         vm.isSubmit = false;
-        vm.length = 0;
         activate();
 
         ////////////////
@@ -48,6 +47,7 @@
         function activate() {}
 
         function submitForm(stud) {
+            console.log(stud);
             if (!angular.isDefined(stud)) {
                 return;
             } else {
@@ -63,7 +63,6 @@
         function getAllStud() {
             studentInfoSvc.getAllStudentInfo().then(function(studentList) {
                 vm.studentsData = studentList;
-                vm.length = Object.keys(studentList).length;
             });
         }
 

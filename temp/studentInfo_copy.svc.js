@@ -11,10 +11,8 @@
         var service = {
                 addStudentInfo: getStudentInfo,
                 getAllStudentInfo: getAllStudentInfo,
-                getStudentById: getStudentById,
-                indexify: indexify
+                getStudentById: getStudentById
             },
-            indexifiedList,
             studentList = [],
             idCount = 0;
 
@@ -32,20 +30,34 @@
                     idCount += 1;
                     studentdata.id = idCount;
                     studentList.push(studentdata);
-                    indexifiedList = indexify(studentList);
+                    console.log(JSON.stringify(studentList));
                 }
             } else {
-                indexifiedList[studentdata.id] = studentdata;
+                // let result1 = studentList.map(function(val, key,result) {
+                //     return result[val.id] = val;
+                // });
+                // alert(JSON.stringify(result1));
+
+                // var obj = studentList.find(function(obj) {
+                //     return obj.id == studentdata.id;
+                // });
+                // console.log(JSON.stringify(obj));
+
+                // angular.forEach(studentList, function(obj) {
+                //     if (obj.id == studentdata.id) {
+                //         obj = studentdata;
+                //     }
+                // });
             }
             return $q.when(studentdata);
         }
 
         function getAllStudentInfo() {
-            return $q.when(indexifiedList);
+            return $q.when(studentList.slice());
         }
 
         function getStudentById(id) {
-            return $q.when(indexifiedList[id]);
+            return $q.when(indexify(studentList)[id]);
         }
 
         function checkDuplicate(obj) {
@@ -57,8 +69,8 @@
         }
 
         function indexify(arr) {
-            var obj = {};
-            arr.forEach(function(value, key){
+            let obj = {};
+            arr.forEach((value, key) => {
                 obj[value.id] = value;
             });
             return obj;
